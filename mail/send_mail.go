@@ -10,7 +10,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func sendMail(toEmail string, verificationCode string) error {
+func SendMail(toEmail string, verificationCode string) error {
 	smtpHost := "email-smtp.eu-north-1.amazonaws.com"
 	smtpPort := "587"
 
@@ -32,7 +32,7 @@ func sendMail(toEmail string, verificationCode string) error {
 
 
 
-func generateVerificationCode() string {
+func GenerateVerificationCode() string {
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
 	return fmt.Sprintf("%06d", r.Intn(1000000)) // 000000 - 999999 arası
 }

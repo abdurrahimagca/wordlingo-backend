@@ -10,7 +10,7 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/yasarunylmzz/wordlingo-backend/internal/db"
-	_ "github.com/yasarunylmzz/wordlingo-backend/mail"
+	mail "github.com/yasarunylmzz/wordlingo-backend/mail"
 )
 
 func CreateUser(c echo.Context) error {
@@ -38,10 +38,10 @@ func CreateUser(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to create user"})
 	}
 	// Kullanıcı oluşturulduktan sonra doğrulama kodu oluştur
-	verificationCode := mail.generateVerificationCode() // mail paketinden fonksiyonu çağırın
+	verificationCode := mail.GenerateVerificationCode() // mail paketinden fonksiyonu çağırın
 
 	// Doğrulama kodunu gönder
-	if err := mail.sendMail(params.Email, verificationCode); err != nil { // mail paketinden fonksiyonu çağırın
+	if err := mail.SendMail(params.Email, verificationCode); err != nil { // mail paketinden fonksiyonu çağırın
 		log.Printf("Failed to send email: %v", err)
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to send email"})
 	}
